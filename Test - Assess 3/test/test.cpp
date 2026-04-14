@@ -30,6 +30,44 @@ public:
     }
 };
 
+// ==================================================
+//                  AUTHOR CLASS
+// ==================================================
+class Author {
+private:
+    int authorID;
+    string name;
+    string nationality;
+
+public:
+    Author() : authorID(0), name("Unknown"), nationality("Unknown") {}
+
+    Author(int id, string n, string nat)
+        : authorID(id), name(n), nationality(nat) {
+    }
+
+    int getAuthorID() const {
+        return authorID;
+    }
+
+    string getName() const {
+        return name;
+    }
+
+    string getNationality() const {
+        return nationality;
+    }
+
+    void displayAuthorDetails() const {
+        cout << "Author ID: " << authorID << endl;
+        cout << "Author Name: " << name << endl;
+        cout << "Nationality: " << nationality << endl;
+    }
+};
+
+
+
+
 // ===============================
 // HARDCOPY BOOK
 // ===============================
