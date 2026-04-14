@@ -1,7 +1,6 @@
 ﻿#define _CRT_SECURE_NO_WARNINGS
 #include <iostream>
 #include "Header-classes-library.h"
-
 using namespace std;
 
 // ===============================
@@ -9,12 +8,14 @@ using namespace std;
 // ===============================
 int main() {
 
-    // ✅ Create Author objects first
+    // ✅ Create Author objects (dependency)
     Author author1(1, "Rick Riordan", "American");
     Author author2(2, "Naomi Novik", "American");
     Author author3(3, "Cassandra Clare", "American");
 
-    // ✅ CORRECT INITIALISATION
+    // =====================================================
+    // ✅ CORRECT BOOK INITIALISATION
+    // =====================================================
     cout << "===== CORRECT BOOK INITIALISATION =====\n";
 
     Book* correct1 = new HardcopyBook(
@@ -48,7 +49,9 @@ int main() {
     correct2->displayBookDetails();
     correct3->displayBookDetails();
 
-    // ❌ INCORRECT INITIALISATION (same books, incorrect data)
+    // =====================================================
+    // ❌ INCORRECT BOOK INITIALISATION (same books)
+    // =====================================================
     cout << "\n===== INCORRECT BOOK INITIALISATION =====\n";
 
     Book* incorrect1 = new HardcopyBook(
@@ -71,7 +74,7 @@ int main() {
 
     Book* incorrect3 = new HardcopyBook(
         "City of Bones",
-        Author(),        // Missing author information
+        Author(),        // Missing author info
         "4444",
         true,
         "2007",
@@ -81,6 +84,58 @@ int main() {
     incorrect1->displayBookDetails();
     incorrect2->displayBookDetails();
     incorrect3->displayBookDetails();
+
+
+    // =====================================================
+    // ✅ SORTING TEST – ASCENDING ORDER (BY TITLE A → Z)
+    // =====================================================
+    cout << "\n===== SORTING TEST: ASCENDING (BY TITLE) =====\n";
+
+    // Deliberately UNSORTED
+    Book* asc[3] = {
+        correct3,   // City of Bones
+        correct1,   // The Lightning Thief
+        correct2    // A Deadly Education
+    };
+
+    cout << "\n-- BEFORE SORT (ASCENDING) --\n";
+    for (int i = 0; i < 3; i++)
+        asc[i]->displayBookDetails();
+
+    // Sort by TITLE ascending
+    Book::sortBookData(asc, 3);
+
+    cout << "\n-- AFTER SORT (ASCENDING) --\n";
+    for (int i = 0; i < 3; i++)
+        asc[i]->displayBookDetails();
+
+
+    // =====================================================
+    // ✅ SORTING TEST – DESCENDING ORDER (BY TITLE Z → A)
+    // =====================================================
+    cout << "\n===== SORTING TEST: DESCENDING (BY TITLE) =====\n";
+
+    // Deliberately UNSORTED
+    Book* desc[3] = {
+        correct2,   // A Deadly Education
+        correct3,   // City of Bones
+        correct1    // The Lightning Thief
+    };
+
+    cout << "\n-- BEFORE SORT (DESCENDING) --\n";
+    for (int i = 0; i < 3; i++)
+        desc[i]->displayBookDetails();
+
+    // Step 1: sort ascending
+    Book::sortBookData(desc, 3);
+
+    // Step 2: reverse array for descending order
+    swap(desc[0], desc[2]);
+
+    cout << "\n-- AFTER SORT (DESCENDING) --\n";
+    for (int i = 0; i < 3; i++)
+        desc[i]->displayBookDetails();
+
 
     return 0;
 }
